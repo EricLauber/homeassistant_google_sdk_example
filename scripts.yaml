@@ -1,0 +1,33 @@
+your_device_refresh_status:
+  alias: "Your Device: Refresh Status via Google Assistant"
+  sequence:
+    - service: google_assistant_sdk_custom.send_text_command
+      data:
+        command: Is the Device Name on?
+      response_variable: response
+    - service: input_text.set_value
+      data:
+        value: "{{ response.responses[0].text }}"
+      target:
+        entity_id: input_text.your_device_status
+  mode: single
+
+your_device_off:
+  alias: "Your Device: Set to Off via Google Assistant"
+  sequence:
+    - service: google_assistant_sdk_custom.send_text_command
+      data:
+        command: Turn the Device Name off.
+    - service: script.your_device_refresh_status
+      data: {}
+  mode: single
+
+your_device_on:
+  alias: "Your Device: Set to On via Google Assistant"
+  sequence:
+    - service: google_assistant_sdk_custom.send_text_command
+      data:
+        command: Turn the Device Name on.
+    - service: script.your_device_refresh_status
+      data: {}
+  mode: single

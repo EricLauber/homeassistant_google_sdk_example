@@ -1,0 +1,12 @@
+refresh_states_google_assistant:
+  alias: Refresh Thing States via Google Assistant
+  description: Get the status of Things only available in Google Assistant.
+  trigger:
+    - platform: time_pattern
+      minutes: /20
+  condition: []
+  action:
+    - service: script.your_device_refresh_status
+      metadata: {}
+      data: {}
+  mode: single

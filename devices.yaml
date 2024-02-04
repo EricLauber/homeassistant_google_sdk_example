@@ -1,0 +1,23 @@
+switch:
+  - platform: template
+    switches:
+      your_device:
+        friendly_name: "Your Device"
+        value_template: >-
+          {% if is_state('input_text.your_device_status', 'The Device Name is on.') %}
+            on
+          {% elif is_state('input_text.your_device_status', 'The Device Name is off.') %}
+            off
+          {% else %}
+            unavailable
+          {% endif %}
+        turn_on:
+          service: script.your_device_on
+        turn_off:
+          service: script.your_device_off
+        icon_template: >-
+          {% if is_state('input_text.your_device_status', 'on') %}
+            mdi:toggle-switch
+          {% else %}
+            mdi:toggle-switch-off-outline
+          {% endif %}
